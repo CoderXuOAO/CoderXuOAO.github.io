@@ -23,7 +23,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://coderxuoao.github.io/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/%E7%94%A8%E6%88%B7%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png">
 <meta property="article:published_time" content="2023-06-02T07:54:48.000Z">
-<meta property="article:modified_time" content="2023-06-02T13:44:10.263Z">
+<meta property="article:modified_time" content="2023-06-03T01:35:41.517Z">
 <meta property="article:author" content="XiaoXu">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="xv6">
@@ -235,7 +235,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            556 words 
+            571 words 
           </div>
         </div>
         
@@ -262,7 +262,7 @@
 <ul>
 <li>栈：在xv6的用户进程空间中用户栈的位置如下所示，大小为一页，在低于stack地址的部分还有一页<code>GUARD PAGE</code>（图中未画出），stack从高地址向低地址增长，栈的容量不会增长，固定为一页，<code>GUARD PAGE</code>用于判断user stack是否溢出，若溢出则进程会直接abort处理。而传统的Linux的用户栈处于较高的地址空间部分，由下往上增长，而堆位于低于栈的地址空间，由下往上增长，当二者相遇时为满。</li>
 <li><code>trampoline</code>为内核代码及数据区，所有用户进程的<code>trampoline page</code>映射到同一个物理页。</li>
-<li><code>trapframe</code>用来存储进程进入内核态时的寄存器环境，以便在退出内核态时可以恢复用户进程。</li>
+<li><code>trapframe</code>用来存储进程进入内核态时的寄存器环境，以便在退出内核态时可以恢复用户进程。不同进程的<code>trapframe</code>映射到不同的物理页。</li>
 <li>虽然RISC-V为64位宽的，但硬件只使用低39位，而xv6只使用其中的低38位，<code>MAXVA</code> = 2<sup>38</sup> - 1，但物理内存只有128MB。</li>
 <li>xv6中C语言main的变量只有<code>argc</code>和<code>*argv[]</code>，没有环境变量<code>arge</code>，<code>argc</code>和<code>*argv[]</code>会在程序运行前放入stack中。</li>
 </ul>
