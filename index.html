@@ -442,8 +442,8 @@ xv6的GDB调试
  kernel/defs.h
  user/initcode.S
  user/init.c
- skimkernel/proc.c
- skimkernel/exec.c
+ skim kernel/proc.c
+ skim kernel/exec.c
  Lab syscall: System calls
 
 xv6的特点
@@ -451,7 +451,7 @@ xv6的特点
 “SMP”(shared Memory Multiprocessor) : xv6支持多核，多核共享同一个主存，每一个核支持一个线程控制（但在一些高性能处理器上，会有单个核支持多线程控制）。
 设备：UART, one disk drive, Timer Interrupts, PLIC(platform level interrupt controller), CLINT(core local interrupt controller)。
 内存管理：每页4KB大小，内存分配使用单个空闲列表(single free list)，不可分配可变大小的内存，三级页表。
-进程调度：时间片调度算法（固定时隙为1,000,000c...  
+进程调度：时间片调度算法（固定时隙为1,000,00...  
           </div>
         
       </div>
