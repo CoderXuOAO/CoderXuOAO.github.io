@@ -662,7 +662,7 @@ navbar,
 .article-entry dl,
 .widget dl {
   margin: 0 20px;
-  line-height: 1.6em;
+  line-height: 1.8em;
 }
 .article-entry ul ul,
 .widget ul ul,
@@ -1275,7 +1275,7 @@ navbar {
   line-clamp: 3;
   -webkit-box-orient: vertical;
   margin: 16px 0;
-  line-height: 1.6em;
+  line-height: 1.8em;
   word-break: break-word;
 }
 a.article-title:hover {
@@ -1313,7 +1313,7 @@ a.article-title:active {
 }
 .article-entry p,
 .article-entry table {
-  line-height: 1.6em;
+  line-height: 1.8em;
   margin: 1.2em 0;
 }
 .article-entry h1,
@@ -1336,8 +1336,8 @@ a.article-title:active {
 .article-entry ul,
 .article-entry ol,
 .article-entry dl {
-  margin-top: 1.6em;
-  margin-bottom: 1.6em;
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
 }
 .article-entry img,
 .article-entry video {
@@ -1388,7 +1388,7 @@ a.article-title:active {
 }
 .article-entry blockquote footer {
   font-size: 16px;
-  margin: 1.6em 0;
+  margin: 1.8em 0;
   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   text-align: right;
 }
@@ -1473,7 +1473,7 @@ a.article-title:active {
 }
 .article-footer {
   font-size: 0.85em;
-  line-height: 1.6em;
+  line-height: 1.8em;
   margin: 0 0 0 24px;
 }
 .article-footer:before,
@@ -1678,7 +1678,7 @@ a.article-title:active {
 }
 .article-nav-title {
   font-size: 0.85em;
-  line-height: 1.6em;
+  line-height: 1.8em;
   margin-top: 0.5em;
 }
 .article-gallery {
@@ -2240,7 +2240,7 @@ a.article-title:active {
   margin: 16px auto;
   overflow: auto;
   color: #ccc;
-  line-height: 25.6px;
+  line-height: 28.8px;
 }
 .article-entry pre ::selection,
 .article-entry .highlight ::selection {
@@ -2305,7 +2305,7 @@ a.article-title:active {
   padding-right: 20px;
 }
 .article-entry .highlight .line {
-  height: 25.6px;
+  height: 28.8px;
 }
 .article-entry .highlight .line.marked {
   background: #515151;
@@ -2739,7 +2739,7 @@ input[type="range"] {
   font-size: 24px;
 }
 .widget {
-  line-height: 1.6em;
+  line-height: 1.8em;
   word-wrap: break-word;
   font-size: 0.9em;
 }
