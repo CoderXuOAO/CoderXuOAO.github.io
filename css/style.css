@@ -352,7 +352,7 @@ body {
 }
 #main-grid {
   display: grid;
-  max-width: 1200px;
+  max-width: 1300px;
   min-height: 100vh;
   grid-template-rows: auto 1fr auto;
   margin: auto;
@@ -364,7 +364,7 @@ body {
     grid-template-columns: auto auto;
   }
 }
-#main-grid #nav {
+#nav {
   grid-column-start: 1;
   grid-column-end: 3;
   -webkit-transition: height 0.15s ease-out;
@@ -372,46 +372,46 @@ body {
   -ms-transition: height 0.15s ease-out;
   transition: height 0.15s ease-out;
 }
-#main-grid #sidebar-wrapper {
+#sidebar-wrapper {
   grid-row: 2;
   grid-column: 1;
 }
 @media screen and (max-width: 767px) {
-  #main-grid #sidebar-wrapper {
+  #sidebar-wrapper {
     display: none;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  #main-grid #sidebar-wrapper {
+  #sidebar-wrapper {
     display: none;
   }
 }
-#main-grid #content-body {
+#content-body {
   grid-column: 2;
   grid-row: 2;
   overflow: auto;
 }
 @media screen and (max-width: 767px) {
-  #main-grid #content-body {
+  #content-body {
     grid-column-start: 1;
     grid-column-end: 3;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  #main-grid #content-body {
+  #content-body {
     grid-column-start: 1;
     grid-column-end: 3;
   }
 }
-#main-grid #footer-wrapper {
+#footer-wrapper {
   grid-row: 3;
   grid-column-start: 1;
   grid-column-end: 3;
 }
-#main-grid.right-sidebar #sidebar-wrapper {
+.right-sidebar #sidebar-wrapper {
   grid-column: 2;
 }
-#main-grid.right-sidebar #content-body {
+.right-sidebar #content-body {
   grid-column: 1;
 }
 #main {
@@ -1060,7 +1060,6 @@ navbar {
   -ms-transition: background 0.15s ease-out;
   transition: background 0.15s ease-out;
   width: 100%;
-  margin-right: -16px;
   padding-bottom: 16px;
 }
 .article-meta:before,
@@ -2353,7 +2352,9 @@ a.article-title:active {
 .article-entry .gist .gist-file .gist-meta a:hover {
   text-decoration: underline;
 }
-pre .comment,
+pre .comment {
+  color: #2e8b57;
+}
 pre .title {
   color: #999;
 }
@@ -2371,20 +2372,24 @@ pre .css .class,
 pre .css .pseudo {
   color: #f2777a;
 }
-pre .number,
+pre .number {
+  color: #00ced1;
+}
 pre .preprocessor,
 pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #f99157;
+  color: #f0e68c;
 }
 pre .class,
 pre .ruby .class .title,
 pre .css .rules .attribute {
   color: #9c9;
 }
-pre .string,
+pre .string {
+  color: #e9967a;
+}
 pre .value,
 pre .inheritance,
 pre .header,
