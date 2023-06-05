@@ -2309,7 +2309,7 @@ a.article-title:active {
   height: 25.6px;
 }
 .article-entry .highlight .line.marked {
-  background: var(--highlight-selection);
+  background: #515151;
 }
 .article-entry .gist {
   border-radius: 8px;
@@ -2353,9 +2353,7 @@ a.article-title:active {
 .article-entry .gist .gist-file .gist-meta a:hover {
   text-decoration: underline;
 }
-pre .comment {
-  color: #228b22;
-}
+pre .comment,
 pre .title {
   color: #999;
 }
@@ -2371,7 +2369,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #a626a4;
+  color: #f2777a;
 }
 pre .number,
 pre .preprocessor,
@@ -2379,29 +2377,25 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #986801;
+  color: #f99157;
 }
 pre .class,
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #50a14f;
+  color: #9c9;
 }
-pre .string {
-  color: #d2691e;
-}
+pre .string,
 pre .value,
 pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #50a14f;
+  color: #9c9;
 }
 pre .css .hexcolor {
   color: #6cc;
 }
-pre .function {
-  color: #fc6;
-}
+pre .function,
 pre .python .decorator,
 pre .python .title,
 pre .ruby .function .title,
@@ -2409,14 +2403,11 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #a626a4;
+  color: #69c;
 }
 pre .keyword,
 pre .javascript .function {
-  color: #a626a4;
-}
-pre .C .function {
-  color: #fc6;
+  color: #c9c;
 }
 .back-to-top-wrapper {
   width: 60px;
