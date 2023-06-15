@@ -13,15 +13,15 @@
   
   <title>xv6的一些操作指南 | XiaoXu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="xv6相关的一些操作 xv6  打开xv6：make qemu 关闭xv6：ctrl+a x 判作业：make grade  xv6的GDB调试  打开调试：A终端make CPUS&#x3D;&#39;X&#39; qemu-gdb，B终端gdb-multiarch 设置断点：b globalname 单步执行不进入函数内部：n 单步执行进入函数内部：s 继续执行：c">
+  <meta name="description" content="xv6相关的一些操作 xv6  打开xv6：make qemu 关闭xv6：ctrl+a x 判作业：make grade  xv6的GDB调试  打开调试：A终端make CPUS&#x3D;&#39;X&#39; qemu-gdb，B终端gdb-multiarch 设置断点：b globalname 单步执行不进入函数内部：n 单步执行进入函数内部：s 继续执行：c 源代码显示窗口：tui enable tui下查看汇">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xv6的一些操作指南">
 <meta property="og:url" content="http://coderxuoao.github.io/2023/06/04/xv6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="XiaoXu&#39;s Blog">
-<meta property="og:description" content="xv6相关的一些操作 xv6  打开xv6：make qemu 关闭xv6：ctrl+a x 判作业：make grade  xv6的GDB调试  打开调试：A终端make CPUS&#x3D;&#39;X&#39; qemu-gdb，B终端gdb-multiarch 设置断点：b globalname 单步执行不进入函数内部：n 单步执行进入函数内部：s 继续执行：c">
+<meta property="og:description" content="xv6相关的一些操作 xv6  打开xv6：make qemu 关闭xv6：ctrl+a x 判作业：make grade  xv6的GDB调试  打开调试：A终端make CPUS&#x3D;&#39;X&#39; qemu-gdb，B终端gdb-multiarch 设置断点：b globalname 单步执行不进入函数内部：n 单步执行进入函数内部：s 继续执行：c 源代码显示窗口：tui enable tui下查看汇">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-06-04T06:55:51.000Z">
-<meta property="article:modified_time" content="2023-06-06T10:26:27.843Z">
+<meta property="article:modified_time" content="2023-06-10T15:55:01.887Z">
 <meta property="article:author" content="XiaoXu">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="xv6">
@@ -167,7 +167,7 @@
       
         <a class="archive-link" href="/archives/2023/06 ">
           June 2023 
-          <div class="archive-count">3 </div>
+          <div class="archive-count">4 </div>
         </a>
       
     </div>
@@ -182,11 +182,15 @@
       <ul>
         
           <li>
+            <a href="/2023/06/10/6.s081%20Lab3%20%E7%AC%94%E8%AE%B0/">笔记</a>
+          </li>
+        
+          <li>
             <a href="/2023/06/04/xv6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">xv6的一些操作指南</a>
           </li>
         
           <li>
-            <a href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/">6.S081 lab2 笔记</a>
+            <a href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/">6.S081 lab3 笔记</a>
           </li>
         
           <li>
@@ -236,7 +240,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            89 words 
+            311 words 
           </div>
         </div>
         
@@ -259,6 +263,21 @@
 <li>单步执行不进入函数内部：<code>n</code></li>
 <li>单步执行进入函数内部：<code>s</code></li>
 <li>继续执行：<code>c</code></li>
+<li>源代码显示窗口：<code>tui enable</code></li>
+<li>tui下查看汇编指令/寄存器值/源代码：<code>layout asm/reg/src</code></li>
+<li>控制聚焦于xx窗口：<code>focus xxx</code></li>
+<li>单指令执行：<code>si</code></li>
+<li>查看所有断点/寄存器值/当前栈帧：<code>info reg/breakpoints/frame</code></li>
+<li>查看所有栈帧：<code>backtrap(bt)</code>，若想要详细查看第x栈帧，可以继续<code>frame x</code>再<code>info frame</code></li>
+<li>输出变量值：<code>p arg</code>，若想输出数组中n个变量的值则可<code>p arg@n</code>，p也可以输出指针所指的内容，即<code>p *addr</code></li>
+<li>当某个变量发生变化时暂停：<code>watch foo</code></li>
+<li>当某个变量等于x时暂停：<code>break foo if &lt;condition&gt;</code></li>
+</ol>
+<h2><a id="tmux_26"></a>tmux的一些操作</h2>
+<ol>
+<li>创建会话：<code>tmux new -s &lt;name&gt;</code></li>
+<li>分离窗口：<code>tmux split-window -h</code>(有-h则为左右分屏，否则为上下分屏)</li>
+<li>切换光标位置：<code>ctrl + b</code> + <code>&lt;任意方向键&gt;</code></li>
 </ol>
 
         
@@ -272,22 +291,27 @@
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left  disabled "
+  <a class="article-nav-btn left "
+    
+      href="/2023/06/10/6.s081%20Lab3%20%E7%AC%94%E8%AE%B0/"
+      title="笔记"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
+      
+        笔记
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
       href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/"
-      title="6.S081 lab2 笔记"
+      title="6.S081 lab3 笔记"
      >
 
     <p class="title-text">
       
-        6.S081 lab2 笔记
+        6.S081 lab3 笔记
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

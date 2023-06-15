@@ -11,11 +11,11 @@
   <meta charset="utf-8">
   
   
-  <title>6.S081 lab2 笔记 | XiaoXu&#39;s Blog</title>
+  <title>6.S081 lab3 笔记 | XiaoXu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="任务   Read chapter 2  kernel&#x2F;entry.S  kernel&#x2F;main.c  kernel&#x2F;proc.h  kernel&#x2F;defs.h  user&#x2F;initcode.S  user&#x2F;init.c  skim kernel&#x2F;proc.c  skim kernel&#x2F;exec.c  Lab syscall: System calls  xv6的特点  “SMP”(shared">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.S081 lab2 笔记">
+<meta property="og:title" content="6.S081 lab3 笔记">
 <meta property="og:url" content="http://coderxuoao.github.io/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="XiaoXu&#39;s Blog">
 <meta property="og:description" content="任务   Read chapter 2  kernel&#x2F;entry.S  kernel&#x2F;main.c  kernel&#x2F;proc.h  kernel&#x2F;defs.h  user&#x2F;initcode.S  user&#x2F;init.c  skim kernel&#x2F;proc.c  skim kernel&#x2F;exec.c  Lab syscall: System calls  xv6的特点  “SMP”(shared">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://coderxuoao.github.io/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/image-20230603235828649.png">
 <meta property="og:image" content="http://coderxuoao.github.io/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/image-20230603235021700.png">
 <meta property="article:published_time" content="2023-06-02T07:54:48.000Z">
-<meta property="article:modified_time" content="2023-06-04T15:54:19.046Z">
+<meta property="article:modified_time" content="2023-06-08T09:56:19.697Z">
 <meta property="article:author" content="XiaoXu">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="xv6">
@@ -173,7 +173,7 @@
       
         <a class="archive-link" href="/archives/2023/06 ">
           June 2023 
-          <div class="archive-count">3 </div>
+          <div class="archive-count">4 </div>
         </a>
       
     </div>
@@ -188,11 +188,15 @@
       <ul>
         
           <li>
+            <a href="/2023/06/10/6.s081%20Lab3%20%E7%AC%94%E8%AE%B0/">笔记</a>
+          </li>
+        
+          <li>
             <a href="/2023/06/04/xv6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">xv6的一些操作指南</a>
           </li>
         
           <li>
-            <a href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/">6.S081 lab2 笔记</a>
+            <a href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/">6.S081 lab3 笔记</a>
           </li>
         
           <li>
@@ -223,7 +227,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        6.S081 lab2 笔记
+        6.S081 lab3 笔记
       </h1>
     
   
@@ -242,7 +246,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.9k words 
+            2.5k words 
           </div>
         </div>
         
@@ -262,7 +266,7 @@
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://github.com/mit-pdos/xv6-riscv/blob/riscv/user/init.c">user/init.c</a></li>
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> skim <a target="_blank" rel="noopener" href="https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c">kernel/proc.c</a></li>
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> skim <a target="_blank" rel="noopener" href="https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/exec.c">kernel/exec.c</a></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/syscall.html">Lab syscall: System calls</a></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/syscall.html">Lab syscall: System calls</a></li>
 </ul>
 <h1><a id="xv6_14"></a>xv6的特点</h1>
 <ul>
@@ -313,6 +317,31 @@
 <p>部分初始化不可调整顺序，其中<code>__sync_synchronize()</code>用来阻止编译器进行一些优化，这条指令的会告诉编译器，完成这条指令之前的所有指令之后，再进行后面的指令。通过这种方式可以确保cpu0将所有初始化完成后，再将<code>started</code>置为1（started变量由volatile声明，告诉编译器不要对此变量的存取进行优化，每次访问此变量的时候都应该从内存中读取该变量）。其他cpu会再while处等到cpu0完成所有初始化并置started变量为1。</p>
 <p>再main.c中cpu0进行的最后一个初始化为<code>userinit()</code>，他会创建第一个用户进程，这种进程有点像胶水代码/Glue code(胶水代码不实现具体的功能，只是为了适配不同的部分而存在)，我们总是需要有一个用户进程在运行，这样才能实现与操作系统的交互，所以这里需要一个小程序来初始化第一个用户进程，该程序为下图二进制部分，这个进程又会exec init.c。init.c会fork并exec shell，之后无限循环。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a user program that calls exec(&quot;/init&quot;)</span></span><br><span class="line"><span class="comment">// od -t xC initcode</span></span><br><span class="line">uchar initcode[] = &#123;</span><br><span class="line">  <span class="number">0x17</span>, <span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x13</span>, <span class="number">0x05</span>, <span class="number">0x45</span>, <span class="number">0x02</span>,</span><br><span class="line">  <span class="number">0x97</span>, <span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x93</span>, <span class="number">0x85</span>, <span class="number">0x35</span>, <span class="number">0x02</span>,</span><br><span class="line">  <span class="number">0x93</span>, <span class="number">0x08</span>, <span class="number">0x70</span>, <span class="number">0x00</span>, <span class="number">0x73</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x93</span>, <span class="number">0x08</span>, <span class="number">0x20</span>, <span class="number">0x00</span>, <span class="number">0x73</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xef</span>, <span class="number">0xf0</span>, <span class="number">0x9f</span>, <span class="number">0xff</span>, <span class="number">0x2f</span>, <span class="number">0x69</span>, <span class="number">0x6e</span>, <span class="number">0x69</span>,</span><br><span class="line">  <span class="number">0x74</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x24</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set up first user process.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">userinit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line"></span><br><span class="line">  p = allocproc();</span><br><span class="line">  initproc = p;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// allocate one user page and copy init&#x27;s instructions</span></span><br><span class="line">  <span class="comment">// and data into it.</span></span><br><span class="line">  uvminit(p-&gt;pagetable, initcode, <span class="keyword">sizeof</span>(initcode));</span><br><span class="line">  p-&gt;sz = PGSIZE;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// prepare for the very first &quot;return&quot; from kernel to user.</span></span><br><span class="line">  p-&gt;trapframe-&gt;epc = <span class="number">0</span>;      <span class="comment">// user program counter</span></span><br><span class="line">  p-&gt;trapframe-&gt;sp = PGSIZE;  <span class="comment">// user stack pointer</span></span><br><span class="line"></span><br><span class="line">  safestrcpy(p-&gt;name, <span class="string">&quot;initcode&quot;</span>, <span class="keyword">sizeof</span>(p-&gt;name));</span><br><span class="line">  p-&gt;cwd = namei(<span class="string">&quot;/&quot;</span>);</span><br><span class="line"></span><br><span class="line">  p-&gt;state = RUNNABLE;</span><br><span class="line"></span><br><span class="line">  release(&amp;p-&gt;lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><a id="Assignment_1_82"></a>Assignment 1</h2>
+<h3><a id="System_call_tracing_moderatehttpspdoscsailmitedu68282021labsguidancehtml_84"></a>System call tracing (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h3>
+<ul>
+<li>要求：写一个<code>trace(int num)</code>的系统调用，其要求是num所对应的二进制作为mask(在struct proc中添加新的进程变量<code>int tracemask[23]</code>)，当进程使用系统调用时如果系统调用号在mask中标记为1，则输出相应的<code>pid: syscall syscallname -&gt; ret value</code>。</li>
+<li>添加关于syscall的内容：添加<code>syscall trace</code>的宏，在<code>syscall tablet</code>中添加<code>sys_trace</code>函数入口，在<code>sysproc.c</code>中添加函数<code>uint64 sys_trace(void)</code>，其中参数由<code>argint</code>调用<code>argraw</code>从<code>p-&gt;trapframe</code>中找到。下面是sys_trace的内容：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_trace</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">  <span class="type">int</span> traceid;</span><br><span class="line">  <span class="keyword">if</span>(argint(<span class="number">0</span>,&amp;traceid) &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>=</span>myproc();</span><br><span class="line">  <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(traceid &gt; <span class="number">0</span> &amp;&amp; cnt &lt; <span class="number">23</span>)&#123;</span><br><span class="line">    p-&gt;tracemask[cnt++] = (traceid%<span class="number">2</span>);</span><br><span class="line">    traceid /= <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;23;++i)&#123;</span></span><br><span class="line">  <span class="comment">//   if(p-&gt;tracemask[i])&#123;</span></span><br><span class="line">  <span class="comment">//     printf(&quot;mask %d\n&quot;,i);</span></span><br><span class="line">  <span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改fork的内容，子进程会复制父进程的tracemask，追踪子进程的系统调用。</li>
+<li>修改usys.pl脚本软件(perl脚本)，增加<code>entry(&quot;trace&quot;)</code>，编译后，会将其转换为汇编语言(如下)，调用trace脚本后，通过将调用入口的编号放入a7寄存器，并<code>ecall</code>来完成系统调用。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.global trace</span><br><span class="line">trace:</span><br><span class="line"> li a7, SYS_trace</span><br><span class="line"> ecall</span><br><span class="line"> ret</span><br></pre></td></tr></table></figure>
+<h3><a id="Sysinfo_moderatehttpspdoscsailmitedu68282021labsguidancehtml_96"></a>Sysinfo (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h3>
+<ul>
+<li>要求：完成一个<code>system call</code>，其功能为保存当前物理内存剩余空间，以及当前的进程数到<code>sysinfo</code>结构体。</li>
+<li>注意点：</li>
+<li>
+<ol>
+<li>需要在相应头文件中添加相关内容；</li>
+<li>当调用sysinfo系统调用的时候，进程进入了内核态，而<code>sysinfo</code>结构体位于用户态的栈中，不是同一个虚拟地址，因此需要使用<code>copyout</code>功能，将sysinfo系统调用获得的数据移动到对应的物理地址。</li>
+<li><code>sysinfo</code>系统调用只有一个给定的sysinfo结构体指针参数，其作为指针可能会有访问非法地址的危险，因此在<code>sysinfo</code>系统调用应对指针进行检查（可用proc结构体中的SZ来进行检查）。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sysproc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sysinfo</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  uint64 addr;</span><br><span class="line">  <span class="keyword">if</span>(argaddr(<span class="number">0</span>, &amp;addr) &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">if</span>(addr &gt;= p-&gt;sz)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span> *<span class="title">ptr</span>=</span>(<span class="keyword">struct</span> sysinfo*)addr;</span><br><span class="line">  uint64 freemem = GetFreeMem();</span><br><span class="line">  uint64 nproc = GetNumOfProc();</span><br><span class="line">  copyout(p-&gt;pagetable, (uint64)&amp;(ptr-&gt;freemem), (<span class="type">char</span>*)&amp;freemem, <span class="keyword">sizeof</span>(freemem));</span><br><span class="line">  copyout(p-&gt;pagetable, (uint64)&amp;(ptr-&gt;nproc), (<span class="type">char</span>*)&amp;nproc, <span class="keyword">sizeof</span>(nproc));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//proc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">GetNumOfProc</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">  uint64 cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; NPROC; ++i)&#123;</span><br><span class="line">    <span class="keyword">if</span>(proc[i].state != UNUSED)&#123;</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//uint64</span></span><br><span class="line">GetFreeMem(<span class="type">void</span>)&#123;</span><br><span class="line">  <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">p</span>;</span></span><br><span class="line">  acquire(&amp;kmem.lock);</span><br><span class="line">  p = kmem.freelist;</span><br><span class="line">  <span class="keyword">while</span>(p)&#123;</span><br><span class="line">    ++cnt;</span><br><span class="line">    p = p-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;kmem.lock);</span><br><span class="line">  <span class="keyword">return</span> cnt * PGSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
       </div>
