@@ -11,17 +11,24 @@
   <meta charset="utf-8">
   
   
-  <title>Tag: xv6 | XiaoXu&#39;s Blog</title>
+  <title>6.S081 lab4 笔记 | XiaoXu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Recording the study of CS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="XiaoXu&#39;s Blog">
-<meta property="og:url" content="http://coderxuoao.github.io/tags/xv6/index.html">
+  <meta name="description" content="一些听课的笔记 [Traps &amp; sys calls] XV6 相关寄存器  xv6的trap流程  硬件操作（根据当前SIE bits来判断以下操作是否进行；页表的切换和当前进程的寄存器环境保存由kernel software完成）  通过操作SIE bits来进行关中断 复制pc寄存器的值到sepc寄存器 将当前的模式（用户态或内核态）存入sstatus的SPP bits中 设置sca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.S081 lab4 笔记">
+<meta property="og:url" content="http://coderxuoao.github.io/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="XiaoXu&#39;s Blog">
-<meta property="og:description" content="Recording the study of CS">
+<meta property="og:description" content="一些听课的笔记 [Traps &amp; sys calls] XV6 相关寄存器  xv6的trap流程  硬件操作（根据当前SIE bits来判断以下操作是否进行；页表的切换和当前进程的寄存器环境保存由kernel software完成）  通过操作SIE bits来进行关中断 复制pc寄存器的值到sepc寄存器 将当前的模式（用户态或内核态）存入sstatus的SPP bits中 设置sca">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://coderxuoao.github.io/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/image-20230620184016097.png">
+<meta property="article:published_time" content="2023-06-20T10:35:25.000Z">
+<meta property="article:modified_time" content="2023-06-21T07:53:06.635Z">
 <meta property="article:author" content="XiaoXu">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="xv6">
+<meta property="article:tag" content="6.S081">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://coderxuoao.github.io/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/image-20230620184016097.png">
   
     <link rel="alternate" href="/atom.xml" title="XiaoXu's Blog" type="application/atom+xml">
   
@@ -211,100 +218,150 @@
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">Archive</h1>
-      </div>    
+<article id="post-6.s081 Lab4 笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        6.S081 lab4 笔记
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-06-20T10:35:25.000Z" itemprop="datePublished">2023-06-20</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            826 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/6-S081/" rel="tag">6.S081</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xv6/" rel="tag">xv6</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1><a id="_Traps__sys_calls_1"></a>一些听课的笔记 [Traps &amp; sys calls]</h1>
+<h2><a id="XV6_3"></a>XV6</h2>
+<h3><a id="_5"></a>相关寄存器</h3>
+<img src="/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/image-20230620184016097.png" class="" title="image-20230620184016097">
+<h3><a id="xv6trap_8"></a>xv6的trap流程</h3>
+<ol>
+<li>硬件操作（根据当前SIE bits来判断以下操作是否进行；页表的切换和当前进程的寄存器环境保存由kernel software完成）
+<ul>
+<li>通过操作SIE bits来进行关中断</li>
+<li>复制pc寄存器的值到sepc寄存器</li>
+<li>将当前的模式（用户态或内核态）存入sstatus的SPP bits中</li>
+<li>设置scause寄存器以反映trap的原因</li>
+<li>设置为内核模式</li>
+<li>将stvec寄存器的值复制到pc寄存器中</li>
+<li>继续执行新的pc</li>
+</ul>
+</li>
+<li>从用户态触发trap
+<ul>
+<li>uservec：存储32个用户寄存器的值到trapframe中；获取所需值；置satp的值为内核页表基址</li>
+<li>usertrap：根据trap的原因执行相应的handler并返回（需存sepc寄存器的值，因为可能会切换内核线程）</li>
+<li>usertrapret：通过设置控制寄存器为未来从用户态执行trap做准备</li>
+<li>userret：回复通用寄存器和sepc的值，并执行sret指令返回用户态</li>
+</ul>
+</li>
+<li>从内核态触发trap
+<ul>
+<li>kernelvec：将32个通用寄存器压入栈中</li>
+<li>kerneltrap：若是device interrupts则进行处理；若是exceptions则只是panic并停止执行</li>
+</ul>
+</li>
+</ol>
+<h2><a id="real_world_27"></a>real world</h2>
+<h3><a id="Pagefault_exceptions_29"></a>Page-fault exceptions</h3>
+<ol>
+<li>copy-on-write(COW) fork：
+<ul>
+<li>在fork时共享所有物理页面，但是所有共享页面都设置为read-only。对页面进行写操作的时候，再触发page-fault异常以分配相应页面的副本，并重新对相应页面进行映射。</li>
+<li>使用book-keeping来记录每一个物理页面被几个用户进程映射，以判断在写操作的时候需不需要分配新的副本。</li>
+</ul>
+</li>
+<li>lazy allocation：
+<ul>
+<li>在申请内存（malloc）的时候推迟分配，在真正使用相应内存的时候再进行真正的内存分配。</li>
+<li>优点：应用通常申请的内存通常超过他们真正所需要的，lazy allocation可以减少消耗；应用可能会一次性申请大量的内存，一次性开销较大，lazy allocation可以分散消耗；</li>
+<li>缺点&amp;解决办法：因内核态/用户态的多次转换，lazy allocation会造成额外的page-fault开销，操作系统可以在每次触发page-fault时分配一批页面而不是一页以减少状态模式的切换次数。</li>
+</ul>
+</li>
+<li>demand paging：
+<ul>
+<li>在exec调用时，现代操作系统只是简单的为用户地址空间创建页表，但是标记所有的页面为invalid，只用当内核访问页面内容时才会将磁盘中的相应内容映射到用户地址空间。</li>
+</ul>
+</li>
+<li>paging to disk：
+<ul>
+<li>只将一部分用户页面放置在RAM中，剩下的都放在磁盘的paging area处，当需要时在调入RAM中，若没有多余的RAM位置，则挑选合适的页面淘汰至paging area。</li>
+</ul>
+</li>
+</ol>
+<h3><a id="_43"></a>其他</h3>
+<ul>
+<li>当整个内核映射到所有进程的用户页表时，trampoline页面和内核地址空间就不需要了，这样也省去了内核/用户态的切换，可以直接使用或是deference用户进程中的指针，大幅提高了效率，但编程的复杂度和安全性也大大降低。</li>
+</ul>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2023</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-        </div>
-      
-      <a class="archive-article-link" href="/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/" title="6.S081 lab4 笔记">
-        <div class="date">06-20</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    6.S081 lab4 笔记
-                
-            </div>
-        </div>
-        <div class="tags">
-            #OS #xv6 #6.S081
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/2023/06/10/6.s081%20Lab3%20%E7%AC%94%E8%AE%B0/" title="6.S081 lab3 笔记">
-        <div class="date">06-10</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    6.S081 lab3 笔记
-                
-            </div>
-        </div>
-        <div class="tags">
-            #OS #xv6 #6.S081
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/2023/06/04/xv6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" title="xv6的一些操作指南">
-        <div class="date">06-04</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    xv6的一些操作指南
-                
-            </div>
-        </div>
-        <div class="tags">
-            #OS #xv6 #6.S081
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/" title="6.S081 lab2 笔记">
-        <div class="date">06-02</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    6.S081 lab2 笔记
-                
-            </div>
-        </div>
-        <div class="tags">
-            #OS #xv6 #6.S081
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2023/06/18/%E8%BF%99%E6%98%AF%E4%BB%80%E4%B9%88%E8%BD%AF%E4%BB%B6%E5%91%A2%EF%BC%9F/"
+      title="这是什么软件呢？"
+     >
+
+    <p class="title-text">
+      
+        这是什么软件呢？
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+ 
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

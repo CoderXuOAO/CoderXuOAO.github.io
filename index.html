@@ -278,7 +278,7 @@ mjx-container[display="true"] + br {
       
         <a class="archive-link" href="/archives/2023/06 ">
           June 2023 
-          <div class="archive-count">6 </div>
+          <div class="archive-count">7 </div>
         </a>
       
     </div>
@@ -291,6 +291,10 @@ mjx-container[display="true"] + br {
     <div class="widget">
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
+        
+          <li>
+            <a href="/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/">6.S081 lab4 笔记</a>
+          </li>
         
           <li>
             <a href="/2023/06/18/%E8%BF%99%E6%98%AF%E4%BB%80%E4%B9%88%E8%BD%AF%E4%BB%B6%E5%91%A2%EF%BC%9F/">这是什么软件呢？</a>
@@ -308,10 +312,6 @@ mjx-container[display="true"] + br {
             <a href="/2023/06/04/xv6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">xv6的一些操作指南</a>
           </li>
         
-          <li>
-            <a href="/2023/06/02/6.S081%20Lab2%20%E7%AC%94%E8%AE%B0/">6.S081 lab2 笔记</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -322,6 +322,100 @@ mjx-container[display="true"] + br {
     </div>
     <div id="content-body">
       
+   
+
+<article id="post-6.s081 Lab4 笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/">6.S081 lab4 笔记</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-06-20T10:35:25.000Z" itemprop="datePublished">2023-06-20</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            826 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/6-S081/" rel="tag">6.S081</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xv6/" rel="tag">xv6</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            一些听课的笔记 [Traps &amp; sys calls]
+XV6
+相关寄存器
+
+xv6的trap流程
+
+硬件操作（根据当前SIE bits来判断以下操作是否进行；页表的切换和当前进程的寄存器环境保存由kernel software完成）
+
+通过操作SIE bits来进行关中断
+复制pc寄存器的值到sepc寄存器
+将当前的模式（用户态或内核态）存入sstatus的SPP bits中
+设置scause寄存器以反映trap的原因
+设置为内核模式
+将stvec寄存器的值复制到pc寄存器中
+继续执行新的pc
+
+
+从用户态触发trap
+
+uservec：存储32个用户寄存器的值到trapframe中；获取所需值；置satp的值为内核页表基址
+usertrap：根据trap的原因执行相应的handler并返回（需存sepc寄存器的值，因为可能会切换内核线程）
+usertrapret：通过设置控制寄存器为未来从用户态执行trap做准备
+userret：回复通用寄存器和sepc的值，并执行sret指令返回用户态
+
+
+从内核态触发trap
+
+kernelvec：将32个通用寄存器压入栈中
+ke...  
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2023/06/20/6.s081%20Lab4%20%E7%AC%94%E8%AE%B0/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+ 
+
    
 
 <article id="post-这是什么软件呢？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
@@ -354,7 +448,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            56 words 
+            131 words 
           </div>
         </div>
         
@@ -369,8 +463,10 @@ clash for windows：
 
 ​	百度云链接：https://pan.baidu.com/s/1f8yK73hTOtxdMel4yowoGQ?pwd=gkqh 提取码：gkqh
 ​	蓝奏云链接：https://wwob.lanzoum.com/i5igc0zgslij 密码:34gd
-​	订阅地址：https://daxun.top
 ​	我的订阅地址(购买订阅前用)：https://daxun.buzz/api/v1/client/subscribe?token=f324cc6ed5f0dcd0aeaf72e6a96a081d
+先用在猫猫软件中的profiles处import我的订阅地址，再上订阅网址购买自己的流量包，最后记得删除我提供的地址，请不要乱花我的流量，谢谢
+​	订阅地址：https://daxun.top
+注册并购买流量包后，在主页处点“一键订阅”即可
   
           </div>
         
