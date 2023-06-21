@@ -354,7 +354,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            826 words 
+            1.5k words 
           </div>
         </div>
         
@@ -381,18 +381,10 @@ xv6的trap流程
 继续执行新的pc
 
 
-从用户态触发trap
+从用户态触发trap（涉及代码：trampoline.s &amp; trap.c &amp; riscv.h）
 
-uservec：存储32个用户寄存器的值到trapframe中；获取所需值；置satp的值为内核页表基址
-usertrap：根据trap的原因执行相应的handler并返回（需存sepc寄存器的值，因为可能会切换内核线程）
-usertrapret：通过设置控制寄存器为未来从用户态执行trap做准备
-userret：回复通用寄存器和sepc的值，并执行sret指令返回用户态
-
-
-从内核态触发trap
-
-kernelvec：将32个通用寄存器压入栈中
-ke...  
+uservec（内核执行但页面为用户空间）：存储32个用户寄存器的值到trapframe中；从trapframe中回复内核环境所需值；置satp的值为内核页表基址；跳转至usertrap
+usertrap：根据trap的原因执行相应的handler并返回；存sepc寄存器的值，因为可能会切换内核线程；将stvec的内容写为kernelvec（因当前为内核态，处理...  
           </div>
         
       </div>
@@ -693,7 +685,7 @@ generic = 通用的；一般的
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            311 words 
+            317 words 
           </div>
         </div>
         
